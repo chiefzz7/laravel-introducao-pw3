@@ -3,6 +3,7 @@
 use App\Http\Controllers\LivroController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('home');
@@ -15,3 +16,17 @@ Route::get('/produtos', [ProdutoController::class, 'index']);
 Route::post('/produtos', [ProdutoController::class, 'store']);
 Route::get('/livros', [LivroController::class, 'index']);
 Route::post('/livros', [LivroController::class, 'store']);
+
+Route::get('/teste-orm', function() {
+    User::create([
+        'name' => 'Ana Clara Santos',
+        'email' => 'ana.santos@escola.sp.gov.br',
+        'password' => '123456'
+    ]);
+
+    return User::all();
+});
+
+// Route::get('/busca', function() {
+//     return User::all();
+// });
