@@ -19,11 +19,11 @@ class UserController extends Controller
     /**
      * Salvar nvoo usuário no banco de dados com validação
      */
-    public function store(Request $req)
+    public function store(Request $request)
     {
         // Validação dos dados (campos) do Formulário
-        $dadosValidados = $req->validate([
-            'nome' => 'required|min:3|max:255',
+        $dadosValidados = $request->validate([
+            'name' => 'required|min:3|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6'
         ]);

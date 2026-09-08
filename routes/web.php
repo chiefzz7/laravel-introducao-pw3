@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\LivroController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\UserController;
+
+use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
 Route::get('/', function () {
@@ -30,3 +32,9 @@ Route::get('/teste-orm', function() {
 // Route::get('/busca', function() {
 //     return User::all();
 // });
+
+// Rota para carregar o formulário / get
+Route::get('/usuarios/novo', [UserController::class, 'create']);
+
+// Rota para salvar os dados enviados / post
+Route::post('/usuarios', [UserController::class, 'store']);

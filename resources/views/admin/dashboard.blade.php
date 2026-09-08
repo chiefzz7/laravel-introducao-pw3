@@ -10,7 +10,7 @@
             <h2 class="text-3xl font-bold text-slate-900">Painel Administrativo</h2>
             <p class="text-slate-600">Resumo rápido do sistema para tomada de decisão.</p>
         </div>
-        <a href="#" class="rounded-lg bg-slate-900 px-4 py-2 font-medium text-white hover:bg-slate-700">
+        <a href="/usuarios/novo" class="rounded-lg bg-slate-900 px-4 py-2 font-medium text-white hover:bg-slate-700">
             Novo registro
         </a>
     </section>
@@ -22,7 +22,7 @@
         </article>
         <article class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
             <p class="text-sm text-slate-500">Usuários cadastrados</p>
-            <p class="mt-2 text-3xl font-bold text-slate-900">84</p>
+            <p class="mt-2 text-3xl font-bold text-slate-900">84j</p>
         </article>
         <article class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
             <p class="text-sm text-slate-500">Pendências</p>
