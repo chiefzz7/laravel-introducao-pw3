@@ -30,3 +30,8 @@ Route::get('/teste-orm', function() {
 // Route::get('/busca', function() {
 //     return User::all();
 // });
+
+// Rotas da Agenda de Eventos
+Route::get('/eventos', [EventoController::class, 'index']);
+Route::get('/eventos/novo', [EventoController::class, 'create']);
+Route::post('/eventos', [EventoController::class, 'store']);
