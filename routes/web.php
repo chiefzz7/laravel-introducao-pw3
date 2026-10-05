@@ -38,3 +38,6 @@ Route::get('/usuarios/novo', [UserController::class, 'create']);
 
 // Rota para salvar os dados enviados / post
 Route::post('/usuarios', [UserController::class, 'store']);
+
+// Rota da listagem e painel administrativo (GET)
+Route::get('/admin', [UserController::class, 'index']);

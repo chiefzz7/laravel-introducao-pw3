@@ -7,32 +7,48 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /*
-     * Exibe o formulário de cadastro de usuários
+    /**
+     * Exibe a listagem de usuários com suporte a filtro de busca.
+     */
+    public function index(Request $request)
+    {
+        // Captura o termo de busca enviado pelo formulário GET
+        $busca = $request->input('busca');
+
+        // Se houver busca, filtra por nome; caso contrário, busca todos ordenados por nome
+        if ($busca) {
+            $usuarios = User::where('name', 'like', "%{$busca}%", 'and')
+                ->orderBy('name', 'asc')
+                ->get();
+        } else {
+            $usuarios = User::orderBy('name', 'asc')->get();
+        }
+
+        // Retorna a view do painel passando a coleção de usuários e o termo pesquisado
+        return view('admin.dashboard', compact('usuarios', 'busca'));
+    }
+
+    /**
+     * Exibe o formulário de cadastro de usuários.
      */
     public function create()
     {
         return view('users.create');
     }
 
-
     /**
-     * Salvar nvoo usuário no banco de dados com validação
+     * Salva o novo usuário no banco de dados com validação.
      */
     public function store(Request $request)
     {
-        // Validação dos dados (campos) do Formulário
         $dadosValidados = $request->validate([
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
         ]);
 
-        // Persistência no banco de dados usando o ORM Eloquent
         User::create($dadosValidados);
 
-        
-        // Redirecionar para o painel administrativo com mensagem de sucesso
-        return redirect('/admin')->with('sucess', 'Usuário cadastrado com sucesso');
+        return redirect('/admin')->with('sucesso', 'Usuário cadastrado com sucesso');
     }
 }
