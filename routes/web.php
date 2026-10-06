@@ -33,11 +33,14 @@ Route::get('/teste-orm', function() {
 //     return User::all();
 // });
 
-// Rota para carregar o formulário / get
-Route::get('/usuarios/novo', [UserController::class, 'create']);
-
-// Rota para salvar os dados enviados / post
-Route::post('/usuarios', [UserController::class, 'store']);
 
 // Rota da listagem e painel administrativo (GET)
 Route::get('/admin', [UserController::class, 'index']);
+
+// Rotas de criação / cadastro
+Route::get('/usuarios/novo', [UserController::class, 'create']);
+Route::post('/usuarios', [UserController::class, 'store']);
+
+//Rotas de edição e atualização
+Route::get('/usuarios/{id}/editar', [UserController::class, 'edit']);
+Route::put('/usuarios/{id}', [UserController::class, 'update']);
