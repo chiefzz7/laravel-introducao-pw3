@@ -16,6 +16,16 @@
         </a>
     </section>
 
+    <!-- Exibição de Mensagem Flash de Sucesso -->
+    @if (session('sucesso'))
+        <div class="mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="font-semibold">Sucesso:</span>
+                <span>{{ session('sucesso') }}</span>
+            </div>
+        </div>
+    @endif
+
     <!-- Barra de Filtro e Busca -->
     <section class="mt-6 bg-white p-4 rounded-xl shadow-sm ring-1 ring-slate-200">
         <form action="/admin" method="GET" class="flex flex-wrap items-center gap-3">
@@ -40,7 +50,7 @@
         </form>
     </section>
 
-    <!-- Tabela Dinâmica de Registros -->
+    <!-- Tabela Dinâmica com Ações de Edição e Exclusão -->
     <section class="mt-6 overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200">
         <div class="border-b border-slate-200 px-6 py-4 flex justify-between items-center">
             <h3 class="font-semibold text-slate-800">Lista de Usuários</h3>
@@ -67,10 +77,25 @@
                             <td class="px-6 py-4 font-medium text-slate-900">{{ $usuario->name }}</td>
                             <td class="px-6 py-4">{{ $usuario->email }}</td>
                             <td class="px-6 py-4 text-slate-500">{{ $usuario->created_at ? $usuario->created_at->format('d/m/Y H:i') : 'Não informada' }}</td>
-                            <td class="px-6 py-4 text-right space-x-2">
-                                <a href="/usuarios/{{ $usuario->id }}/editar" class="text-indigo-600 hover:text-indigo-900 font-medium text-xs">
-                                    Editar
-                                </a>
+                            <td class="px-6 py-4 text-right">
+                                <div class="inline-flex items-center gap-3">
+                                    <a href="/usuarios/{{ $usuario->id }}/editar" class="text-indigo-600 hover:text-indigo-900 font-medium text-xs">
+                                        Editar
+                                    </a>
+
+                                    <form
+                                        action="/usuarios/{{ $usuario->id }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Tem certeza que deseja excluir o usuário {{ $usuario->name }}?');"
+                                        class="inline"
+                                    >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-rose-600 hover:text-rose-900 font-medium text-xs">
+                                            Excluir
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty

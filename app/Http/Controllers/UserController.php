@@ -58,7 +58,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $usuario = User::FindOrFail($id);
+        $usuario = User::findOrFail($id);
 
         return view('users.edit', compact('usuario'));
     }
@@ -68,13 +68,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $usuario = User::FindOrFail($id);
+        $usuario = User::findOrFail($id);
 
         $dadosValidados = $request->validate([
             'name' => 'required|min:3|max:255',
             'email' => [
                 'required', 'email',
-                Rule::unique('users')->ignore($usuario->$id),
+                Rule::unique('users')->ignore($usuario->id),
             ],
             'password' => 'nullable|min:6',
         ]);
@@ -87,4 +87,18 @@ class UserController extends Controller
 
         return redirect('/admin')->with('sucesso', 'Usuário atualizado com sucesso!'); 
     }
+
+    /**
+     * Remove o registro do Usuário no Banco de Dados
+     */
+    public function destroy(int $id)
+    {
+        $usuario = User::findOrFail($id);
+
+        // executa a exclusão do registro
+        $usuario->delete();
+
+        return redirect('/admin')->with('sucesso', 'Usuário removido com sucesso');
+    }
 }
+

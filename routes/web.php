@@ -41,6 +41,9 @@ Route::get('/admin', [UserController::class, 'index']);
 Route::get('/usuarios/novo', [UserController::class, 'create']);
 Route::post('/usuarios', [UserController::class, 'store']);
 
-//Rotas de edição e atualização
+// Rotas de edição e atualização
 Route::get('/usuarios/{id}/editar', [UserController::class, 'edit']);
 Route::put('/usuarios/{id}', [UserController::class, 'update']);
+
+// Rotas de exclusão
+Route::delete('/usuarios/{id}', [UserController::class, 'destroy']);
