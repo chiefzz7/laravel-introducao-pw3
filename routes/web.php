@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\LivroController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\UserController;
+
+use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
 Route::get('/', function () {
@@ -30,3 +32,18 @@ Route::get('/teste-orm', function() {
 // Route::get('/busca', function() {
 //     return User::all();
 // });
+
+
+// Rota da listagem e painel administrativo (GET)
+Route::get('/admin', [UserController::class, 'index']);
+
+// Rotas de criação / cadastro
+Route::get('/usuarios/novo', [UserController::class, 'create']);
+Route::post('/usuarios', [UserController::class, 'store']);
+
+// Rotas de edição e atualização
+Route::get('/usuarios/{id}/editar', [UserController::class, 'edit']);
+Route::put('/usuarios/{id}', [UserController::class, 'update']);
+
+// Rotas de exclusão
+Route::delete('/usuarios/{id}', [UserController::class, 'destroy']);
