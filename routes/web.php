@@ -5,6 +5,9 @@ use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 use App\Models\User;
 
 Route::get('/', function () {
@@ -47,3 +50,19 @@ Route::put('/usuarios/{id}', [UserController::class, 'update']);
 
 // Rotas de exclusão
 Route::delete('/usuarios/{id}', [UserController::class, 'destroy']);
+
+Route::get('/lab-seguranca', function (Request $request) {
+    $termo = $request->query('busca', '');
+
+    $resultadoVuneravel = [];
+    $erroVuneravel = null;
+
+    // 1 - Simulação didática de falha (concatenada propositalmente para teste)
+    if ($termo !== '') {
+        try {
+            $resultadoVuneravel = DB::select("SELECT id, name, email FROM users WHERE name = '$termo'");
+        } catch (\Exception $e) {
+            $erroVuneravel = $e->getMessage();
+        }
+    }
+});
